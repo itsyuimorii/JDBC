@@ -17,7 +17,7 @@ import java.util.Properties;
 public class preparedStatementUpdateTest {
 
     //Generic add, delete and change operations
-    public void modify(String sql,Object ...args) {//sql中占位符的个数与可变形参的长度相同！
+    public void modify(String sql,Object ...args) {//The number of placeholders in /sql is the same as the length of the deformable parameter!
         Connection connection = null;
         PreparedStatement psInstance = null;
         try {
@@ -27,7 +27,7 @@ public class preparedStatementUpdateTest {
             psInstance = connection.prepareStatement(sql);
             //3.Fill Placeholder
             for (int i = 0; i < args.length; i++) {
-                psInstance.setObject(i + 1, args[i]);//小心参数声明错误！！
+                psInstance.setObject(i + 1, args[i]);
             }
             //4.Execution
             psInstance.execute();
