@@ -64,3 +64,37 @@ connectionTest.java
   - **Statement:** An object used to execute a static SQL statement and return the result it generates. 
   - **PrepatedStatement**: SQL statement is pre-compiled and stored in this object, which can be used to execute the statement many times in an efficient way.
   - **CallableStatement**: Used to execute SQL stored procedures.
+
+#### 3.2 Disadvantages of using Statement to manipulate data tables
+
+- This object is created by calling the createStatement() method of the Connection object. This object is used to execute a static SQL statement and return the result of the execution.
+
+- The following methods are defined in the Statement interface for executing SQL statements.
+
+  ```sql
+  int excuteUpdate(String sql): executes the update operation INSERT, UPDATE, DELETE
+  ResultSet executeQuery(String sql): executes the query operation SELECT
+  ```
+
+- But there are disadvantages of using Statement to manipulate data tables.
+
+  - **Problem 1: There is a spelling operation, tedious **
+  - **Problem 2: There is a SQL injection problem**
+
+- SQL injection is the practice of taking advantage of the fact that some systems do not check the user input data sufficiently and inject illegal SQL statement segments or commands into the user input data (e.g., SELECT user, password FROM user_table WHERE user='a' OR 1 = ' AND password = ' OR '1' = '1'), thus using the system's SQL engine to accomplish malicious behavior.
+
+- For Java, to prevent SQL injection, simply replace Statement with PreparedStatement (which extends from Statement).
+
+###  ![1](/Users/yuimorii/Documents/GitHub/JDBC/img/1.png)
+
+#### 3.3 Use of PreparedStatement
+
+##### 3.3.1 Introduction to PreparedStatement
+
+- A PreparedStatement object can be obtained by calling the **preparedStatement(String sql)** method of the Connection object
+
+- **PreparedStatement interface is a sub-interface of Statement, which represents a pre-compiled SQL statement**.
+
+- The parameters in the SQL statement represented by the PreparedStatement object are represented by question marks (?) The parameters in the SQL statement represented by the PreparedStatement object are represented by question marks (?), and the setXxx() method of the PreparedStatement object is called to set these parameters. The setXxx() method has two parameters, the first one is the index of the parameter in the SQL statement to be set (starting from 1) and the second one is the value of the parameter in the SQL statement to be set
+
+##### 3.3.4 使用PreparedStatement实现增、删、改操作
