@@ -1,7 +1,6 @@
 package com.yuimorii.statement.crud;
 
 
-
 import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,51 +8,50 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Scanner;
 
-import com.yuimorii.statement.util.JDBCUtils;
+import com.yuimorii.statement.crud.util.JDBCUtils;
 import org.junit.Test;
+
 /**
- *
  * @Description 演示使用PreparedStatement替换Statement，解决SQL注入问题
- * @version
  * @date
  */
 public class PreparedStatementTest {
     @Test
     public void testLogin() {
+//get users input
         Scanner scanner = new Scanner(System.in);
-
         System.out.print("Please Enter Your Username");
         String user = scanner.nextLine();
         System.out.print("Please Enter Your Password：");
         String password = scanner.nextLine();
-        //SELECT user,password FROM user_table WHERE user = '1' or ' AND password = '=1 or '1' = '1'
+        //SELECT user,password
+        //FROM user_table WHERE user = "AA" and password = "123456";
         String sql = "SELECT user,password FROM user_table WHERE user = ? and password = ?";
-        User returnUser = getInstance(User.class,sql,user,password);
-        if(returnUser != null){
+        User returnUser = getInstance(User.class, sql, user, password);
+        if (returnUser != null) {
             System.out.println("Successful! Welcome back....");
-        }else{
+        } else {
             System.out.println("Username does not exist or password is wrong");
         }
     }
 
     /**
-     *
-     * @Description 针对于不同的表的通用的查询操作，返回表中的一条记录
-     * @author
-     * @date
      * @param clazz
      * @param sql
      * @param args
      * @return
+     * @Description 针对于不同的表的通用的查询操作，返回表中的一条记录
+     * @author
+     * @date
      */
-    public <T> T getInstance(Class<T> clazz,String sql, Object... args) {
-        Connection conn = null;
+    public <T> T getInstance(Class<T> clazz, String sql, Object... args) {
+        Connection connection = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         try {
-            conn = JDBCUtils.getConnection();
+            connection = JDBCUtils.getConnection();
 
-            ps = conn.prepareStatement(sql);
+            ps = connection.prepareStatement(sql);
             for (int i = 0; i < args.length; i++) {
                 ps.setObject(i + 1, args[i]);
             }
@@ -85,7 +83,7 @@ public class PreparedStatementTest {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.closeResource(conn, ps, rs);
+            JDBCUtils.closeResource(connection, ps, rs);
 
         }
 

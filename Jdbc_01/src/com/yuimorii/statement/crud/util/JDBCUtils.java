@@ -1,11 +1,7 @@
-package com.yuimorii.statement.util;
+package com.yuimorii.statement.crud.util;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.Properties;
 
 /**
@@ -20,7 +16,7 @@ public class JDBCUtils {
 	
 	/**
 	 * 
-	 * @Description 获取数据库的连接
+	 * @Description get connection from DB
 	 * @date
 	 * @return
 	 * @throws Exception
@@ -28,7 +24,6 @@ public class JDBCUtils {
 	public static Connection getConnection() throws Exception {
 		// 1.读取配置文件中的4个基本信息
 		InputStream is = ClassLoader.getSystemClassLoader().getResourceAsStream("jdbc.properties");
-
 		Properties pros = new Properties();
 		pros.load(is);
 
@@ -50,7 +45,7 @@ public class JDBCUtils {
 	 * @param connection
 	 * @param psInstance
 	 */
-	public static void closeResource(Connection connection,Statement psInstance){
+	public static void closeResource(Connection connection, Statement psInstance){
 		try {
 			if(psInstance != null)
 				psInstance.close();

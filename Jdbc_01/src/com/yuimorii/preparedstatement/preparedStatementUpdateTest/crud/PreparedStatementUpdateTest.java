@@ -1,9 +1,8 @@
-package com.yuimorii.preparedstatement.preparedStatementUpdateTest;
+package com.yuimorii.preparedstatement.preparedStatementUpdateTest.crud;
 
-import com.yuimorii.connnection.connectionTest;
-import com.yuimorii.statement.util.JDBCUtils;
+
+import com.yuimorii.statement.crud.util.JDBCUtils;
 import org.junit.Test;
-
 
 import java.io.InputStream;
 import java.sql.Connection;
@@ -14,10 +13,24 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
-public class preparedStatementUpdateTest {
+/**
+ * 使用preparedstatement來替換statemnt，實現對數據的CRUD操作
+ */
+public class PreparedStatementUpdateTest {
+    @Test
+    public void testCommonUpdate() {
+//        String sql = "delete from customers where id = ?";
+//        update(sql, 3);
+        String sql = "update `order` set order_name = ? where order_id = ?";
+        update(sql,"DD","2");
 
-    //Generic add, delete and change operations
-    public void modify(String sql,Object ...args) {//The number of placeholders in /sql is the same as the length of the deformable parameter!
+    }
+    //Generic CRUD operations
+
+
+
+    public void update(String sql, Object... args) {
+        //The number of placeholders in /sql is the same as the length of the deformable parameter!
         Connection connection = null;
         PreparedStatement psInstance = null;
         try {
@@ -25,7 +38,7 @@ public class preparedStatementUpdateTest {
             connection = JDBCUtils.getConnection();
             //2. Pre-compile sql statements to return instances of PreparedStatement
             psInstance = connection.prepareStatement(sql);
-            //3.Fill Placeholder
+            //3.Fill Placeholder 填充佔位符
             for (int i = 0; i < args.length; i++) {
                 psInstance.setObject(i + 1, args[i]);
             }
@@ -39,7 +52,7 @@ public class preparedStatementUpdateTest {
         }
     }
 
-        @Test
+    @Test
     //modify records in customer table
     public void TestUpdate() throws Exception {
 
@@ -48,6 +61,8 @@ public class preparedStatementUpdateTest {
         //1.Connection with database
         try {
             connection = JDBCUtils.getConnection();
+
+
             //2.Pre-compile sql statements to return instances of PreparedStatement
             String sql = "update customers set name = ? where id = ? ";
             psInstance = connection.prepareStatement(sql);
@@ -97,6 +112,7 @@ public class preparedStatementUpdateTest {
             //5. Fill placeholders
             psInstance.setString(1, "MatthewOS");
             psInstance.setString(2, "MatthewOS@gmail.com");
+            //對日期特殊parse方法解析
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             java.util.Date date = sdf.parse("2000-01-01");
             psInstance.setDate(3, (java.sql.Date) new Date(date.getTime()));
