@@ -8,11 +8,27 @@ JDBC (Java Database Connectivity) is an **independent of a specific database man
 
 
 
-<img src="https://github.com/itsyuimorii/JDBC/blob/main/img/2020-06-08_10-36-13.png" alt="main-qimg-721b04a64b3da53bd4662bda5358015f" style="zoom:70%;" />
+<img src="https://github.com/itsyuimorii/JDBC/blob/main/img/main-qimg-721b04a64b3da53bd4662bda5358015f.webp" alt="main-qimg-721b04a64b3da53bd4662bda5358015f" style="zoom:70%;" />
 
 ####  JDBC program writing steps
 
-### 
+ ![2020-06-08_10-36-13](https://github.com/itsyuimorii/JDBC/blob/main/img/2020-06-08_10-36-13.png)
+
+```
+Step 1: Register the driver (role: tell the Java program which brand of database it is about to connect to)
+
+Step 2: Get the connection (indicates that the channel between the JVM process and the database process is open, which belongs to the communication between processes, heavyweight, and must close the channel after use.)
+
+Step 3: Get the database operation object (the object dedicated to the execution of sql statements)
+
+Step 4: Execute SQL statements (DQL DML ....)
+
+Step 5: process the query result set (only if the fourth step is executed when the select statement, there is this fifth step to process the query result set.)
+
+Step 6: Release the resources (after using the resources must be closed. Java and the database belongs to the inter-process communication, after opening must be closed.)
+```
+
+
 
 ## 2. Fetching database connections
 
@@ -87,7 +103,7 @@ connectionTest.java
 
 - For Java, to prevent SQL injection, simply replace Statement with PreparedStatement (which extends from Statement).
 
-###  ![1](/Users/yuimorii/Documents/GitHub/JDBC/img/1.png)
+###  ![1](https://github.com/itsyuimorii/JDBC/blob/main/img/2020-06-08_10-36-13.png)
 
 #### 3.3 Use of PreparedStatement
 
@@ -105,14 +121,4 @@ connectionTest.java
 
 JDBC 6 Steps
 
-	第一步：注册驱动（作用：告诉Java程序，即将要连接的是哪个品牌的数据库）
 	
-	第二步：获取连接（表示JVM的进程和数据库进程之间的通道打开了，这属于进程之间的通信，重量级的，使用完之后一定要关闭通道。）
-	
-	第三步：获取数据库操作对象（专门执行sql语句的对象）
-	
-	第四步：执行SQL语句（DQL DML....）
-	
-	第五步：处理查询结果集（只有当第四步执行的是select语句的时候，才有这第五步处理查询结果集。）
-	
-	第六步：释放资源（使用完资源之后一定要关闭资源。Java和数据库属于进程间的通信，开启之后一定要关闭。）
