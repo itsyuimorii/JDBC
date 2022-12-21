@@ -12,8 +12,6 @@ JDBC (Java Database Connectivity) is an **independent of a specific database man
 
 ####  JDBC program writing steps
 
- ![2020-06-08_10-36-13](https://github.com/itsyuimorii/JDBC/blob/main/img/2020-06-08_10-36-13.png)
-
 ```
 Step 1: Register the driver (role: tell the Java program which brand of database it is about to connect to)
 
