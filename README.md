@@ -6,7 +6,9 @@ JDBC (Java Database Connectivity) is an **independent of a specific database man
 
 #### **Structure of JDBC** 
 
-<img src="/Users/yuimorii/Documents/GitHub/JDBC/img/main-qimg-721b04a64b3da53bd4662bda5358015f.webp" alt="main-qimg-721b04a64b3da53bd4662bda5358015f" style="zoom:70%;" />
+
+
+<img src="https://github.com/itsyuimorii/JDBC/blob/main/img/2020-06-08_10-36-13.png" alt="main-qimg-721b04a64b3da53bd4662bda5358015f" style="zoom:70%;" />
 
 ####  JDBC program writing steps
 
