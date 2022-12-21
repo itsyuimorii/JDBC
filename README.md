@@ -101,8 +101,6 @@ connectionTest.java
 
 - For Java, to prevent SQL injection, simply replace Statement with PreparedStatement (which extends from Statement).
 
-###  ![1](https://github.com/itsyuimorii/JDBC/blob/main/img/2020-06-08_10-36-13.png)
-
 #### 3.3 Use of PreparedStatement
 
 ##### 3.3.1 Introduction to PreparedStatement
@@ -117,6 +115,6 @@ connectionTest.java
 
 
 
-JDBC 6 Steps
+
 
 	
