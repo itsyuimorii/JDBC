@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.util.Scanner;
 
-import com.yuimorii.statement.crud.util.JDBCUtils;
+import com.yuimorii.preparedstatement.util.JDBCUtils;
 import org.junit.Test;
 
 /**
@@ -55,8 +55,11 @@ public class PreparedStatementTest {
             for (int i = 0; i < args.length; i++) {
                 ps.setObject(i + 1, args[i]);
             }
-
+            //執行
             rs = ps.executeQuery();
+
+
+
             // 获取结果集的元数据 :ResultSetMetaData
             ResultSetMetaData rsmd = rs.getMetaData();
             // 通过ResultSetMetaData获取结果集中的列数

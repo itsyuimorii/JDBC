@@ -1,4 +1,4 @@
-package com.yuimorii.statement.crud.util;
+package com.yuimorii.preparedstatement.util;
 
 import java.io.InputStream;
 import java.sql.*;
@@ -7,7 +7,7 @@ import java.util.Properties;
 /**
  * 
  * @Description 操作数据库的工具类
- * @author shkstart Email:shkstart@126.com
+ * @author yuimorii
  * @version
  * @date 上午9:10:02
  *
@@ -60,9 +60,9 @@ public class JDBCUtils {
 		}
 	}
 	/**
-	 * 
+	 *
 	 * @Description 关闭资源操作
-	 * @author shkstart
+	 * @author yuimorii
 	 * @date 上午10:21:15
 	 * @param connection
 	 * @param psInstance

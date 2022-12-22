@@ -1,7 +1,7 @@
-package com.yuimorii.preparedstatement.preparedStatementUpdateTest.crud;
+package com.yuimorii.preparedstatement.preparedStatement.crud;
 
 
-import com.yuimorii.statement.crud.util.JDBCUtils;
+import com.yuimorii.preparedstatement.util.JDBCUtils;
 import org.junit.Test;
 
 import java.io.InputStream;

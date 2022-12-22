@@ -111,10 +111,19 @@ connectionTest.java
 
 - The parameters in the SQL statement represented by the PreparedStatement object are represented by question marks (?) The parameters in the SQL statement represented by the PreparedStatement object are represented by question marks (?), and the setXxx() method of the PreparedStatement object is called to set these parameters. The setXxx() method has two parameters, the first one is the index of the parameter in the SQL statement to be set (starting from 1) and the second one is the value of the parameter in the SQL statement to be set
 
-##### 3.3.2 使用PreparedStatement实现增、删、改操作
+##### 3.3.2  Java and SQL corresponding data type conversion table
+
+| Java type          | SQL type                 |
+| ------------------ | ------------------------ |
+| boolean            | BIT                      |
+| byte               | TINYINT                  |
+| short              | SMALLINT                 |
+| int                | INTEGER                  |
+| long               | BIGINT                   |
+| String             | CHAR,VARCHAR,LONGVARCHAR |
+| byte   array       | BINARY  ,    VAR BINARY  |
+| java.sql.Date      | DATE                     |
+| java.sql.Time      | TIME                     |
+| java.sql.Timestamp | TIMESTAMP                |
 
 
-
-
-
-	
