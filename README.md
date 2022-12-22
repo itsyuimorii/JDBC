@@ -126,6 +126,97 @@ connectionTest.java
 | java.sql.Time      | TIME                     |
 | java.sql.Timestamp | TIMESTAMP                |
 
+##### 3.3.4 Use PreparedStatement to add, delete and change operations
+
+```java
+	// common add, delete, change operations (embodiment of a: add, delete, change; embodiment of the second: for different tables)
+	public void update(String sql, Object ... args){
+		Connection conn = null;
+		PreparedStatement ps = null;
+		try {
+			// 1. Get the database connection
+			conn = JDBCUtils.getConnection();
+			
+			//2. Get an instance of PreparedStatement (or: pre-compiled sql statement)
+			ps = conn.prepareStatement(sql);
+			//3. Fill placeholders
+			for(int i = 0;i < args.length;i++){
+				ps.setObject(i + 1, args[i]);
+			}
+			
+			//4. Execute sql statement
+			ps.execute();
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}finally{
+			//5. Close the resource
+			JDBCUtils.closeResource(conn, ps);
+			
+		}
+	}
+```
+
+##### 3.3.5 Using PreparedStatement to implement query operations
+
+```java
+	// generic query for different tables: return an object (version 1.0)
+	public <T> T getInstance(Class<T> clazz, String sql, Object... args) {
+
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		try {
+			// 1. Get the database connection
+			conn = JDBCUtils.getConnection();
+
+			// 2. pre-compile sql statement to get PreparedStatement object
+			ps = conn.prepareStatement(sql);
+
+			// 3. Fill the placeholder
+			for (int i = 0; i < args.length; i++) {
+				ps.setObject(i + 1, args[i]);
+			}
+
+			// 4. ExecuteQuery(), get the result set: ResultSet
+			rs = ps.executeQuery();
+
+			// 5. Get the metadata of the result set: ResultSetMetaData
+			ResultSetMetaData rsmd = rs.getMetaData();
+
+			// 6.1 Get columnCount,columnLabel by ResultSetMetaData; get column value by ResultSet
+			int columnCount = rsmd.getColumnCount();
+			if (rs.next()) {
+				T t = clazz.newInstance();
+				for (int i = 0; i < columnCount; i++) { // iterate through each column
+
+					// Get the column value
+					Object columnVal = rs.getObject(i + 1);
+					// Get the alias of the column: the alias of the column is filled with the property name of the class
+					String columnLabel = rsmd.getColumnLabel(i + 1);
+					// 6.2 Use reflection to assign values to the corresponding properties of the object
+					Field field = clazz.getDeclaredField(columnLabel);
+					field.setAccessible(true);
+					field.set(t, columnVal);
+
+				}
+
+				return t;
+
+			}
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		} finally {
+			// 7. Close the resource
+			JDBCUtils.closeResource(conn, ps, rs);
+		}
+
+		return null;
+
+	}
+```
+
 #### 3.4 ResultSet & ResultSetMetaData
 
 ##### 3.4.1 ResultSet
@@ -161,11 +252,11 @@ ResultSetMetaData meta = rs.getMetaData();
 - **getColumnLabel**(int column): get the alias of the specified column
 - **getColumnCount**(): returns the number of columns in the current ResultSet object. 
 
-- getColumnTypeName(int column): retrieves the database specific type name of the specified column. 
-- getColumnDisplaySize(int column): indicates the maximum standard width of the specified column in characters. 
+- **getColumnTypeName**(int column): retrieves the database specific type name of the specified column. 
+- **getColumnDisplaySize**(int column): indicates the maximum standard width of the specified column in characters. 
 - **isNullable**(int column): Indicates whether the value in the specified column can be null. 
 
-- isAutoIncrement(int column): indicates whether the specified columns are automatically numbered so that they remain read-only. 
+- **isAutoIncrement**(int column): indicates whether the specified columns are automatically numbered so that they remain read-only. 
 
 > **Question 1: After getting the result set, how to know which columns are in the result set ? What are the column names?   The resultSetMetaData is an object that describes the ResultSet.**
 
