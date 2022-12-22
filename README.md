@@ -126,4 +126,79 @@ connectionTest.java
 | java.sql.Time      | TIME                     |
 | java.sql.Timestamp | TIMESTAMP                |
 
+#### 3.4 ResultSet & ResultSetMetaData
 
+##### 3.4.1 ResultSet
+
+- The query requires a call to the **executeQuery() method** of the PreparedStatement, and the result of the query is a **ResultSet object**.
+
+- The **ResultSet object** encapsulates the result set for performing database operations in the form of a logical table, and the ResultSet interface is implemented by the database vendor.
+- The ResultSet returns what is actually a **data table**. There is a pointer to the first record of the data table.
+
+- The ResultSet object maintains a **cursor** to the current row of data, which initially precedes the first row and can be moved to the next row by the next() method of the ResultSet object. The next() method is called to check if the next row is valid. If it is, the method returns true and the pointer is moved down. It is equivalent to the combination of the hasNext() and next() methods of the Iterator object.
+- When the pointer points to a row, you can get the value of each column by calling getXxx(int index) or getXxx(int columnName).
+
+  - For example: getInt(1), getString("name")
+  - **Note: The indexes in the relevant Java APIs involved in the interaction between Java and the database start from 1. **
+
+- Common methods of the ResultSet interface.
+  - boolean next()
+
+  - getString()
+  ![1555580152530](/Users/yuimorii/Documents/GitHub/JDBC/img/1555580152530.png) 
+
+##### 3.4.2 ResultSetMetaData
+
+An object that can be used to get information about the type and properties of the columns in the ResultSet object
+
+```
+ResultSetMetaData meta = rs.getMetaData();
+```
+
+- **getColumnName**(int column): Get the name of the specified column
+- **getColumnLabel**(int column): get the alias of the specified column
+- **getColumnCount**(): returns the number of columns in the current ResultSet object. 
+
+- getColumnTypeName(int column): retrieves the database specific type name of the specified column. 
+- getColumnDisplaySize(int column): indicates the maximum standard width of the specified column in characters. 
+- **isNullable**(int column): Indicates whether the value in the specified column can be null. 
+
+- isAutoIncrement(int column): indicates whether the specified columns are automatically numbered so that they remain read-only. 
+
+> **Question 1: After getting the result set, how to know which columns are in the result set ? What are the column names?   The resultSetMetaData is an object that describes the ResultSet.**
+
+Need to use an object describing the ResultSet, that is, ResultSetMetaData
+
+> **Question 2: About ResultSetMetaData** 1.
+
+1. **How to get ResultSetMetaData**: Just call the getMetaData() method of ResultSet
+2. **Get the number of columns in the ResultSet**: Call the getColumnCount() method of ResultSetMetaData
+3. **Get the alias of each column of the ResultSet**: Call the getColumnLabel() method of the ResultSetMetaData
+
+![Screen Shot 2022-12-22 at 9.11.09 AM](/Users/yuimorii/Documents/GitHub/JDBC/img/Screen Shot 2022-12-22 at 9.11.09 AM.png)
+
+#### 3.5 Release of resources
+
+- Release ResultSet, Statement, Connection.
+- Database connection (Connection) is a very rare resource and **must be released immediately after use**, if Connection is not closed properly in time it will lead to system downtime.The principle of using Connection is ** create it as late as possible and release it as early as possible. **
+- It can be closed in finally to ensure that the resource will be closed in case of exceptions in other code.
+
+#### 3.6 JDBC API Summary
+
+- Two kinds of ideas
+
+  - Interface-oriented programming idea
+
+  - **ORM idea (object relational mapping)**
+    - A data table corresponds to a java class
+    - A record in the table corresponds to an object of the java class
+    - A field in a table corresponds to a property of a java class
+
+  > sql is required to combine the column names and table attribute names to write. Note the aliasing.
+
+- Two techniques
+
+  - JDBC result set metadata: ResultSetMetaData
+    - Get the number of columns: getColumnCount()
+    - Get the alias of the column: getColumnLabel()
+  - Create the object of the specified class, get the specified properties and assign values through reflection
