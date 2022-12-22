@@ -11,7 +11,7 @@ import java.sql.SQLException;
 
 import java.util.Properties;
 
-public class connectionTest {
+public class connectionTest01 {
     @Test
     public void Test01() {
         try {
@@ -109,7 +109,7 @@ public class connectionTest {
     public void Test05() throws Exception{
 
         //1. Read the 4 basic information in the configuration file
-        InputStream is = connectionTest.class.getClassLoader().getResourceAsStream("jdbc.properties");
+        InputStream is = connectionTest01.class.getClassLoader().getResourceAsStream("jdbc.properties");
 
         Properties pros = new Properties();
         pros.load(is);
