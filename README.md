@@ -142,10 +142,12 @@ connectionTest.java
   - **Note: The indexes in the relevant Java APIs involved in the interaction between Java and the database start from 1. **
 
 - Common methods of the ResultSet interface.
-  - boolean next()
-
-  - getString()
-  ![1555580152530](/Users/yuimorii/Documents/GitHub/JDBC/img/1555580152530.png) 
+  
+  boolean next()
+  
+  getString()
+  
+  ![1555580152530](https://github.com/itsyuimorii/JDBC/blob/main/img/1555580152530.png) 
 
 ##### 3.4.2 ResultSetMetaData
 
@@ -175,7 +177,7 @@ Need to use an object describing the ResultSet, that is, ResultSetMetaData
 2. **Get the number of columns in the ResultSet**: Call the getColumnCount() method of ResultSetMetaData
 3. **Get the alias of each column of the ResultSet**: Call the getColumnLabel() method of the ResultSetMetaData
 
-![Screen Shot 2022-12-22 at 9.11.09 AM](/Users/yuimorii/Documents/GitHub/JDBC/img/Screen Shot 2022-12-22 at 9.11.09 AM.png)
+![Screen Shot 2022-12-22 at 9.11.09 AM](https://github.com/itsyuimorii/JDBC/blob/main/img/Screen%20Shot%202022-12-22%20at%209.11.09%20AM.png)
 
 #### 3.5 Release of resources
 
