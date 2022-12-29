@@ -10,10 +10,6 @@ import java.sql.*;
 
 public class CustomerForQuery {
 
-
-
-
-
     @Test
     public void testQueryForCustomers(){
         String sql = "select id,name,birth,email from customers where id = ?";
